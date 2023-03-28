@@ -1,0 +1,15 @@
+.auth-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+  .auth-form {
+    width: 400px;
+    max-width: 90%;
+
+    .auth-form-button {
+      width: 100%;
+    }
+  }
+}
