@@ -1,33 +1,46 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import { login } from "../../store/authReducer";
-import { authAPI } from '../../api/authAPI';
+import { LOGIN_SUCCESS } from '../../constants/actions';
+import { Loader } from '../Loader/Loader';
+import { ErrorMessage } from '../Messages/ErrorMessage';
 
 import './auth.scss';
-import { LOGIN_SUCCESS } from '../../constants/actions';
-import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   const onFinish = async (values: any) => {
-    login(values.email, values.password).then((success: boolean) => {
+    setIsLoading(true);
+    login(values.email, values.password).then(({ success, data }: any) => {
       if (success) {
-        dispatch({ type: LOGIN_SUCCESS });
+        dispatch({ type: LOGIN_SUCCESS, user: data });
         navigate('/');
+      } else {
+        setError(data);
       }
+      setIsLoading(false);
     });
   };
 
   return (
     <div className="auth-layout">
+
+      { isLoading && <Loader /> }
+
+      <div className="auth-logo">
+        <img src="logo.png" alt="logo" width="150px" />
+      </div>
+
       <Form
         name="login"
         className="auth-form"
-        initialValues={{ remember: true }}
         onFinish={onFinish}
         >
         <Form.Item
@@ -35,37 +48,45 @@ export const Login = () => {
           rules={[
             {
               type: 'email',
-              message: 'The input is not valid E-mail!',
+              message: 'The input is not valid email!',
             },
             {
               required: true,
-              message: 'Please input your E-mail!',
+              message: 'Please, input your email!',
             },
           ]}
         >
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
+          <Input placeholder="Email" />
         </Form.Item>
+
         <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Please input your Password!' }]}
+          rules={[{ required: true, message: 'Please, input your password!' }]}
         >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
+          <Input.Password
             type="password"
             placeholder="Password"
           />
         </Form.Item>
+
+        <ErrorMessage error={error} />
+
         <Form.Item>
-          <a className="login-form-forgot" href="/reset-password">
+          <Button type="primary" htmlType="submit" className="auth-form-button">
+            Login
+          </Button>         
+        </Form.Item>
+
+        <Form.Item className="auth-button">
+          <a href="/forgot-password">
             Forgot password
           </a>
         </Form.Item>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="auth-form-button">
-            Log in
-          </Button>
-          Or <a href="/register">register now!</a>
+        <Form.Item className="auth-button">
+          <a href="/register">
+            Create an account
+          </a>
         </Form.Item>
       </Form>
     </div>

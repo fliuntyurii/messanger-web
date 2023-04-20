@@ -1,15 +1,75 @@
+$main-color: rgb(72, 181, 237);
+$main-color-transparent: rgba(72, 181, 237, 0.35);
+
 .auth-layout {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
+  font-family: 'Lora', serif;
+
+  .auth-logo {
+    margin-bottom: 40px;
+  }
   .auth-form {
     width: 400px;
     max-width: 90%;
 
+    .ant-input-affix-wrapper {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    input {
+      font-family: 'Noto Serif',  sans-serif;
+      height: 40px;
+      font-size: 16px;
+      color: $main-color;
+    }
     .auth-form-button {
       width: 100%;
+    }
+    .ant-form-item {
+      margin-bottom: 20px;
+    }
+    button {
+      margin-top: 20px;
+      height: 40px;
+      font-size: 16px;
+      font-weight: 700;
+      background-color: $main-color;
+    }
+    button:hover {
+      background-color: $main-color-transparent;
+      color: $main-color;
+    }
+    .auth-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 6px;
+      margin: 16px 0 0;
+      height: 40px;
+      font-weight: 700;
+      .ant-row.ant-form-item-row {
+        width: 100%;
+      }
+      a, p, button {
+        font-size: 16px;
+        color: $main-color;
+        margin-top: 0;
+        background: none;
+        border: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+      
+    }
+    .auth-button:hover {
+      background-color: $main-color-transparent;
     }
   }
 }

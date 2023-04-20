@@ -1,15 +1,15 @@
 import { instance } from ".";
 
 export const authAPI = {
-  // fix back
-  register: (name: string, email: string, password: string, username: string) => {
+  register: (email: string, password: string, username: string, name: string, bio: string) => {
     return instance.post(`auth/register`, {
-      name,
       email,
       password,
-      username
+      username,
+      name,
+      bio
     })
-      .then(res => res.data);
+      .then(res => res);
   },
 
   login: (email: string, password: string) => {
@@ -17,14 +17,17 @@ export const authAPI = {
       email,
       password
     })
-      .then(res => res.data)
-      .catch(err => console.log(err))
+      .then(res => res);
   },
 
-  // fix back
+  isUserExist: ({ username, email }: any) => {
+    return instance.get(`auth/isUserExist?username=${username}&email=${email}`)
+      .then(res => res.data);
+  },
+
   forgotPassword: (email: string) => {
     return instance.get(`auth/forgotPassword/${email}`)
-      .then(res => res.data);
+      .then(res => res);
   },
 
   updateForgottenPassword: ({ password, confirmPassword, token, email }: any) => {
@@ -32,29 +35,26 @@ export const authAPI = {
       password,
       confirmPassword
     })
-      .then(res => res.data);
+      .then(res => res);
   },
 
-  ////////////////
+  showCurrentUser: () => {
+    return instance.get(`auth/showMe`)
+      .then(res => res);
+  },
+
   logout: () => {
     return instance.delete(`auth/logout`)
       .then(res => res.data);
   },
 
-  showCurrentUser: () => {
-    return instance.get(`auth/showMe`)
-      .then(res => res.data);
-  },
-
-  // fix back
-  verifyAccount: (token: string, id: string) => {
+    verifyAccount: (token: string, id: string) => {
     return instance.put(`auth/verify`, {
       token, id
     })
       .then(res => res.data);
   },
 
-  // fix back
   resendMsgToVerify: (email: string) => {
     return instance.get(`auth/verifyMessage/${email}`)
       .then(res => res.data);

@@ -1,22 +1,14 @@
-export function setCookie(name: string, value: string, days: number) {
-  const expires = new Date();
-  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-}
+import { ACCESS_TOKEN, CACHE_NAME } from "../constants/auth";
+import { clearCache } from "./caches";
 
-export function getCookie(name: string) {
-  const cookieString = document.cookie;
-  const cookies = cookieString.split(';');
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    if (cookie.startsWith(`${name}=`)) {
-      return cookie.substring(`${name}=`.length, cookie.length);
-    }
+export function checkCookie() {
+  const cookies = document.cookie;
+
+  if (cookies.includes(`${ACCESS_TOKEN}=`)) {
+    localStorage.setItem('auth', true.toString());
+    return;
   }
-  return '';
-}
-
-export function removeCookie(name: string) {
-  const expires = new Date('Thu, 01 Jan 1970 00:00:00 UTC');
-  document.cookie = `${name}=;expires=${expires.toUTCString()};path=/`;
+  
+  localStorage.clear();
+  clearCache(CACHE_NAME);
 }

@@ -1,0 +1,45 @@
+$backgroundColor: rgb(248, 248, 248);
+$shadow: 0 -1px 30px rgba(0, 0, 0, .1);
+$headerHeight: 56px;
+
+.navbar-wrapper {
+  position: fixed;
+  bottom: 0;
+  z-index: 998;
+  width: 100vw;
+  height: $headerHeight;
+  display: flex;
+  justify-content: center;
+  
+  background-color: $backgroundColor;
+  border-top: 1px solid rgb(240, 240, 240);
+  box-shadow: $shadow;
+
+  .navbar {
+    max-width: 600px;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+
+    .navbar-option {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  z-index: 998;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: $headerHeight;
+
+  background-color: $backgroundColor;
+  border-bottom: 1px solid rgb(240, 240, 240);
+  box-shadow: $shadow;
+}

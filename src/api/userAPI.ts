@@ -6,8 +6,8 @@ export const userAPI = {
       .then(res => res.data);
   },
 
-  getSingleUser: () => {
-    return instance.get(`users/find-user`)
+  getSingleUser: ({ username, email }: any) => {
+    return instance.get(`users/find-user?username=${username}&email=${email}`)
       .then(res => res.data);
   },
 

@@ -1,7 +1,10 @@
-export type TCurrentUser = {
+export type TUser = {
   name: string,
   email: string,
   username: string
   bio: string,
-  dialogues: []
+  image?: string,
+  dialogues?: [],
+  language?: string,
+  role?: string
 }

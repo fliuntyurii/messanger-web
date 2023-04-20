@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
+import { BASE_API_URL } from '../constants/api';
 
 export const instance: AxiosInstance = axios.create({
-  withCredentials: false,
-  baseURL: 'https://express-server-slos.onrender.com/api/v1/',
+  baseURL: BASE_API_URL,
+  withCredentials: true,
 });

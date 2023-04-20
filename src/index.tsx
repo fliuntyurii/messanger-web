@@ -7,8 +7,9 @@ import { Provider } from 'react-redux';
 import en from './locales/en.json';
 import ua from './locales/ua.json';
 import store from './store/store';
-import './index.scss';
 import App from './App';
+
+import './styles/global.scss';
 
 i18n.use(initReactI18next).init({
   resources: {
